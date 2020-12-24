@@ -1,0 +1,3 @@
+[submodule "disk_treemap/static"]
+	path = disk_treemap/static
+	url = https://github.com/exzhawk/disk_treemap_static.git
