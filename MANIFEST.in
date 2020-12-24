@@ -1,0 +1,1 @@
+recursive-include disk_treemap/static/dist/webapp *
