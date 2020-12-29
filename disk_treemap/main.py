@@ -56,13 +56,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('paths', nargs='*',
                         help='path(s) to scan. if multiple paths is provided, they will be show in root side by side')
-    parser.add_argument('--size_tree_path', default='size_tree.json', help='path to save scan result as a JSON file')
-    parser.add_argument('--overwrite', action='store_true', help='overwrite existed JSON file. default to False')
-    parser.add_argument('--scan_only', action='store_true',
+    parser.add_argument('--size_tree_path', '-f', default='size_tree.json',
+                        help='path to save scan result as a JSON file')
+    parser.add_argument('--overwrite', '-o', action='store_true',
+                        help='overwrite existed JSON file. default to False')
+    parser.add_argument('--scan_only', '-s', action='store_true',
                         help='scan and save JSON file but do not start web server. default to False')
-    parser.add_argument('--host', default='127.0.0.1', help='listening host of the web server')
-    parser.add_argument('--port', default=8000, type=int, help='listening port of the web server. default to 8000')
-    parser.add_argument('--compression', action='store_true',
+    parser.add_argument('--host', '-H', default='127.0.0.1',
+                        help='listening host of the web server')
+    parser.add_argument('--port', '-p', default=8000, type=int,
+                        help='listening port of the web server. default to 8000')
+    parser.add_argument('--compression', '-c', action='store_true',
                         help='enable compression of web server. require flask_compress to operate. default to False')
     args = parser.parse_args()
     root_paths = args.paths
