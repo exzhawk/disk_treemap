@@ -22,12 +22,35 @@ class BuildStatic(setuptools.Command):
         subprocess.call(['npm', 'run', 'build', '--', '--prod'], cwd=cwd)
 
 
+with open('README.md', 'r', encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(
     name='disk_treemap',
     version=__version__,
+    author='Epix Zhang',
     packages=['disk_treemap'],
     description='Just another disk usage analyzer with treemap GUI.',
-    author='Epix Zhang',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/exzhawk/disk_treemap',
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Environment :: Web Environment",
+        "Framework :: Flask",
+        "Intended Audience :: End Users/Desktop",
+        "Intended Audience :: System Administrators",
+        "Programming Language :: JavaScript",
+        "Topic :: Desktop Environment :: File Managers",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: System :: Filesystems",
+        "Topic :: Utilities",
+    ],
+    python_requires='>=3.6',
     license='MIT',
     zip_safe=True,
     include_package_data=True,
