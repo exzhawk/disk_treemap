@@ -45,6 +45,7 @@ def start_server(size_tree_file_path, host, port, compression):
 def scan_paths(root_paths, size_tree_file_path):
     all_size_tree = {}
     for root_path in root_paths:
+        root_path = str(Path(root_path))
         size_tree = scan_size_tree(root_path)
         all_size_tree.update(size_tree)
     with open(size_tree_file_path, 'w') as f:

@@ -21,10 +21,9 @@ def scan(top_path):
 
 
 def scan_size_tree(root_path):
-    root_path = root_path.rstrip(os.sep)
     size_tree = dict()
     for path, size in tqdm(scan(root_path), desc=root_path):
-        *directories, filename = path.split(os.sep)
+        *directories, filename = path.lstrip(os.sep).split(os.sep)
         directories.insert(0, root_path)
         current_size_tree = size_tree
         for directory in directories:
