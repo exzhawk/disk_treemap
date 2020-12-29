@@ -22,9 +22,13 @@ Just another disk usage analyzer with treemap GUI.
 pip install disk_treemap
 ```
 
+Also install optional dependencies to enable compression
+```shell
+pip install disk_treemap[compression]
+```
+
 ## Build and install from source
 
-TODO finish build steps
 ```shell
 # clone the repository
 git clone 
@@ -63,6 +67,8 @@ optional arguments:
                         flask_compress to operate. default to False
 ```
 
+You may also use the module directly: `python -m disk_treemap.main`. Same arguments apply.
+
 A `size_tree.json` will be generated in the current directory. It contains file tree and file size information. Keep it
 safe!
 
@@ -71,31 +77,39 @@ safe!
 **Analyze an ordinary computer**
 
 1. Run `disk-treemap <Paths to analyze>`
+   
 1. After `listening 127.0.0.1:8000` appearing, open browser and navigate to http://127.0.0.1:8000 .
 
 **Analyze a remote Linux server, view on the local machine**
 
 1. Run `disk-treemap <Paths to analyze> --host 0.0.0.0`.
 
-   If bandwidth between the server and the local machine is limited, try to install `
+   If bandwidth between the server and the local machine is limited, try to install optional dependencies and append `--compression` to command above to enable compression.
+
 1. After `listening 0.0.0.0:8000` appearing, open browser on the local machine and navigate to http:
    //<IP address of the server>:8000 .
 
 **Analyze a remote Linux server without external accessible IP, view on the local machine**
 
 1. Run `disk-treemap <Paths to analyze> --scan_only`
+
 1. After process exit without error. There should be a file named `size_tree.json` in the current directory. Copy the
    file to local machine using `rsync` or other tools.
+
 1. Run `disk-treemap` in the directory where the copied file located.
+
 1. After `listening 127.0.0.1:8000` appearing, open browser and navigate to http://127.0.0.1:8000 .
 
 **Install and analyze an Android phone with Termux**
 
 1. Install Termux https://termux.com/
+
 1. Install Python and pip in Termux https://wiki.termux.com/wiki/Python
+
 1. Install disk_treemap via pip: `pip install termux`
 
 # TODO
 
 * Provide more visualization. Icicle/flame, sunburst maybe.
+
 * Use NTFS USN Journal to speed up scanning on Windows.
