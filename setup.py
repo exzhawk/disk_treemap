@@ -4,6 +4,7 @@ import subprocess
 
 import setuptools
 from setuptools import setup
+from disk_treemap import __version__
 
 
 class BuildStatic(setuptools.Command):
@@ -23,7 +24,7 @@ class BuildStatic(setuptools.Command):
 
 setup(
     name='disk_treemap',
-    version='1.0.0',
+    version=__version__,
     packages=['disk_treemap'],
     description='Just another disk usage analyzer with treemap GUI.',
     author='Epix Zhang',
