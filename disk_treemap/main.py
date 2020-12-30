@@ -14,7 +14,7 @@ from .scan_fs import scan_size_tree
 def start_server(size_tree_file_path, host, port, compression):
     app = Flask(__name__)
     base_dir = Path(__file__).absolute().parent / 'static' / 'dist' / 'webapp'
-    app.root_path = base_dir
+    app.root_path = str(base_dir)
     if compression:
         from flask_compress import Compress
         Compress(app)
