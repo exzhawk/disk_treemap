@@ -11,7 +11,7 @@ Just another disk usage analyzer with treemap GUI.
 
 ## Cons
 
-* The web base frontend may suffering performance issue if the treemap is too large.
+* The web base frontend may suffer from performance issue if the treemap is too large.
 * Scan speed is not ideal, especially on Windows.
 
 # Installation
