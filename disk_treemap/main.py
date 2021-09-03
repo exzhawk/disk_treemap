@@ -63,7 +63,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('paths', nargs='*',
                         help='path(s) to scan. '
-                             'If multiple paths is provided, they will be show in root side by side.'
+                             'If multiple paths is provided, they will be show in root side by side. '
                              'S3 or compatible object storage service is supported by a "s3://" prefixed URI')
     parser.add_argument('--size-tree-path', '--size_tree_path', '-f', default='size_tree.json',
                         help='path to save scan result as a JSON file')

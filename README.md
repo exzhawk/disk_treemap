@@ -45,26 +45,36 @@ pip install dist/disk_treemap-1.0.0-py3-none-any.whl # change the filename
 # Usage
 
 ```
-usage: disk-treemap [-h] [--size_tree_path SIZE_TREE_PATH] [--overwrite]
-               [--scan_only] [--host HOST] [--port PORT] [--compression]
-               [--static_path STATIC_PATH]
-               paths [paths ...]
+usage: main.py [-h] [--size-tree-path SIZE_TREE_PATH] [--overwrite]
+               [--scan-only] [--host HOST] [--port PORT] [--compression]
+               [--endpoint-url ENDPOINT_URL] [--follow-links]
+               [--follow-mounts]
+               [paths [paths ...]]
 
 positional arguments:
-  paths                 path(s) to scan. if multiple paths is provided, they
-                        will be show in root side by side
+  paths                 path(s) to scan. If multiple paths is provided, they
+                        will be show in root side by side. S3 or compatible
+                        object storage service is supported by a "s3://"
+                        prefixed URI
 
 optional arguments:
   -h, --help            show this help message and exit
-  --size_tree_path SIZE_TREE_PATH
+  --size-tree-path SIZE_TREE_PATH, --size_tree_path SIZE_TREE_PATH, -f SIZE_TREE_PATH
                         path to save scan result as a JSON file
-  --overwrite           overwrite existed JSON file. default to False
-  --scan_only           scan and save JSON file but do not start web server.
+  --overwrite, -o       overwrite existed JSON file. default to False
+  --scan-only, --scan_only, -s
+                        scan and save JSON file but do not start web server.
                         default to False
-  --host HOST           listening host of the web server
-  --port PORT           listening port of the web server. default to 8000
-  --compression         enable compression of web server. require
+  --host HOST, -H HOST  listening host of the web server
+  --port PORT, -p PORT  listening port of the web server. default to 8000
+  --compression, -c     enable compression of web server. require
                         flask_compress to operate. default to False
+  --endpoint-url ENDPOINT_URL
+                        custom endpoint url, only affects S3
+  --follow-links, --follow_links
+                        follow symlinks
+  --follow-mounts, --follow_mounts
+                        follow mounts
 ```
 
 You may also use the module directly: `python -m disk_treemap.main`. Same arguments apply.
