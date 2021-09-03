@@ -9,6 +9,7 @@ from pathlib import Path
 from flask import Flask, send_file, jsonify
 
 from .scan_fs import scan_size_tree
+from .scan_s3 import scan_size_tree_s3
 
 
 def start_server(size_tree_file_path, host, port, compression):
@@ -42,11 +43,16 @@ def start_server(size_tree_file_path, host, port, compression):
     app.run(host, port)
 
 
-def scan_paths(root_paths, size_tree_file_path, follow_links, follow_mounts):
+def scan_paths(root_paths, size_tree_file_path, args):
     all_size_tree = {}
     for root_path in root_paths:
-        root_path = str(Path(root_path))
-        size_tree = scan_size_tree(root_path, follow_links, follow_mounts)
+        if root_path.startswith('s3://'):
+            if root_path.endswith('/'):
+                root_path = root_path[:-1]
+            size_tree = scan_size_tree_s3(root_path, args.endpoint_url)
+        else:
+            root_path = str(Path(root_path))
+            size_tree = scan_size_tree(root_path)
         all_size_tree.update(size_tree)
     with open(size_tree_file_path, 'w') as f:
         json.dump(all_size_tree, f)
@@ -56,7 +62,9 @@ def scan_paths(root_paths, size_tree_file_path, follow_links, follow_mounts):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('paths', nargs='*',
-                        help='path(s) to scan. if multiple paths is provided, they will be show in root side by side')
+                        help='path(s) to scan. '
+                             'If multiple paths is provided, they will be show in root side by side.'
+                             'S3 or compatible object storage service is supported by using a "s3://" prefixed URI')
     parser.add_argument('--size-tree-path', '--size_tree_path', '-f', default='size_tree.json',
                         help='path to save scan result as a JSON file')
     parser.add_argument('--overwrite', '-o', action='store_true',
@@ -69,6 +77,7 @@ def main():
                         help='listening port of the web server. default to 8000')
     parser.add_argument('--compression', '-c', action='store_true',
                         help='enable compression of web server. require flask_compress to operate. default to False')
+    parser.add_argument('--endpoint-url', help='custom endpoint url, only affects S3')
     parser.add_argument('--follow-links', '--follow_links', action='store_true',
                         help='follow symlinks')
     parser.add_argument('--follow-mounts', '--follow_mounts', action='store_true',
@@ -78,7 +87,7 @@ def main():
     size_tree_file_path = os.path.abspath(args.size_tree_path)
     if os.path.exists(size_tree_file_path):
         if args.overwrite:
-            scan_paths(root_paths, size_tree_file_path, args.follow_links, args.follow_mounts)
+            scan_paths(root_paths, size_tree_file_path, args)
         else:
             print('{} exists. Skip scanning process.'.format(args.size_tree_path))
     else:
@@ -86,7 +95,7 @@ def main():
             print('nothing to scan and nothing to show. exiting.')
             return -1
         else:
-            scan_paths(root_paths, size_tree_file_path, args.follow_links, args.follow_mounts)
+            scan_paths(root_paths, size_tree_file_path, args)
 
     if not args.scan_only:
         start_server(size_tree_file_path=size_tree_file_path, host=args.host, port=args.port,
