@@ -52,7 +52,7 @@ def scan_paths(root_paths, size_tree_file_path, args):
             size_tree = scan_size_tree_s3(root_path, args.endpoint_url)
         else:
             root_path = str(Path(root_path))
-            size_tree = scan_size_tree(root_path)
+            size_tree = scan_size_tree(root_path, args.follow_links, args.follow_mounts)
         all_size_tree.update(size_tree)
     with open(size_tree_file_path, 'w') as f:
         json.dump(all_size_tree, f)
@@ -64,7 +64,7 @@ def main():
     parser.add_argument('paths', nargs='*',
                         help='path(s) to scan. '
                              'If multiple paths is provided, they will be show in root side by side.'
-                             'S3 or compatible object storage service is supported by using a "s3://" prefixed URI')
+                             'S3 or compatible object storage service is supported by a "s3://" prefixed URI')
     parser.add_argument('--size-tree-path', '--size_tree_path', '-f', default='size_tree.json',
                         help='path to save scan result as a JSON file')
     parser.add_argument('--overwrite', '-o', action='store_true',
