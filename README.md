@@ -8,6 +8,7 @@ Just another disk usage analyzer with treemap GUI.
   Termux.)
 * B/S structure. You can run the scanner on a remote machine, and view treemap via a browser on a local machine
 * Support save/load a treemap. You can run the scanner on a machine, then copy result to another one and view it.
+* Support S3 or S3 compatible object storage service
 
 ## Cons
 
@@ -20,11 +21,6 @@ Just another disk usage analyzer with treemap GUI.
 
 ```shell
 pip install disk_treemap
-```
-
-Also install optional dependencies to enable compression
-```shell
-pip install disk_treemap[compression]
 ```
 
 ## Build and install from source
