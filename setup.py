@@ -60,11 +60,9 @@ setup(
     install_requires=[
         'flask',
         'tqdm',
+        'flask-compress',
+        'boto3',
     ],
-    extras_require={
-        'compression': ["flask-compress"]
-    },
-
     entry_points={
         'console_scripts': [
             'disk-treemap=disk_treemap.main:main',
