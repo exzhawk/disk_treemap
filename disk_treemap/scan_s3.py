@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Author: Epix
 from functools import lru_cache
 
 import boto3
@@ -10,27 +11,23 @@ def get_s3_client2(endpoint_url):
     return boto3.client('s3', endpoint_url=endpoint_url)
 
 
-def walk_with_size2(s3_url, endpoint_url):
+def walk_with_size(s3_url, endpoint_url):
     s3_url = s3_url + '/'
     bucket, prefix = s3_url[5:].split('/', 1)
     s3_client = get_s3_client2(endpoint_url)
-    pending_common_prefix = [prefix]
-    while pending_common_prefix:
-        current_common_prefix = pending_common_prefix.pop()
-        paginator = s3_client.get_paginator('list_objects_v2')
-        response_iterator = paginator.paginate(Bucket=bucket, Prefix=current_common_prefix, Delimiter='/')
-        for response in response_iterator:
-            pending_common_prefix.extend(p['Prefix'] for p in response.get('CommonPrefixes', ()))
-            yield [(f['Key'], f['Size']) for f in response.get('Contents', ())]
+    paginator = s3_client.get_paginator('list_objects_v2')
+    response_iterator = paginator.paginate(Bucket=bucket, Prefix=prefix)
+    for response in response_iterator:
+        yield [(f['Key'], f['Size']) for f in response.get('Contents', ())]
 
 
 def scan(top_path, endpoint_url):
-    for files in walk_with_size2(top_path, endpoint_url):
+    for files in walk_with_size(top_path, endpoint_url):
         for filename, size in files:
             yield filename, size
 
 
-def scan_size_tree_s3(root_path, endpoint_url):
+def scan_size_tree(root_path, endpoint_url):
     object_prefix_same = set()
     size_tree = dict()
     for path, size in tqdm(scan(root_path, endpoint_url), desc=root_path):
