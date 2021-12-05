@@ -1,1 +1,3 @@
 recursive-include disk_treemap/static/dist/webapp *
+include disk_treemap Everything64.dll
+include disk_treemap Everything_license.txt
