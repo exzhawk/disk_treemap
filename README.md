@@ -41,11 +41,11 @@ pip install dist/disk_treemap-1.0.0-py3-none-any.whl # change the filename
 # Usage
 
 ```
-usage: main.py [-h] [--size-tree-path SIZE_TREE_PATH] [--overwrite]
-               [--scan-only] [--host HOST] [--port PORT] [--compression]
-               [--endpoint-url ENDPOINT_URL] [--follow-links]
-               [--follow-mounts]
-               [paths [paths ...]]
+usage: disk-treemap [-h] [--size-tree-path SIZE_TREE_PATH] [--overwrite]
+                    [--scan-only] [--host HOST] [--port PORT] [--compression]
+                    [--endpoint-url ENDPOINT_URL] [--follow-links]
+                    [--follow-mounts] [--everything]
+                    [paths ...]
 
 positional arguments:
   paths                 path(s) to scan. If multiple paths is provided, they
@@ -71,6 +71,9 @@ optional arguments:
                         follow symlinks
   --follow-mounts, --follow_mounts
                         follow mounts
+  --everything          use Everything by voidtools to speedup scanning. The
+                        result will be absolute path. Everything must be
+                        running and only x64 version is supported.
 ```
 
 You may also use the module directly: `python -m disk_treemap.main`. Same arguments apply.
@@ -83,6 +86,14 @@ safe!
 **Analyze an ordinary computer**
 
 1. Run `disk-treemap <Paths to analyze>`
+   
+1. After `listening 127.0.0.1:8000` appearing, open browser and navigate to http://127.0.0.1:8000 .
+
+**Analyze a Windows computer with Everything x64 installed**
+
+1. Make sure Everything x64 is running.
+
+1. Run `disk-treemap --everything <Paths to analyze>`
    
 1. After `listening 127.0.0.1:8000` appearing, open browser and navigate to http://127.0.0.1:8000 .
 
@@ -113,6 +124,8 @@ safe!
 1. Install Python and pip in Termux https://wiki.termux.com/wiki/Python
 
 1. Install disk_treemap via pip: `pip install termux`
+
+1. Just do analyze as your phone is an ordinary computer.
 
 # TODO
 
