@@ -8,12 +8,12 @@ Just another disk usage analyzer with treemap GUI.
   Termux.)
 * B/S structure. You can run the scanner on a remote machine, and view treemap via a browser on a local machine
 * Support save/load a treemap. You can run the scanner on a machine, then copy result to another one and view it.
-* Support S3 or S3 compatible object storage service
+* Support S3 and S3 compatible object storage service
+* Support using Everything by voidtools to speedup scanning.
 
 ## Cons
 
 * The web base frontend may suffer from performance issue if the treemap is too large.
-* Scan speed is not ideal, especially on Windows.
 
 # Installation
 
