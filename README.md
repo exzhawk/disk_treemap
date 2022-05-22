@@ -123,7 +123,7 @@ safe!
 
 1. Install Python and pip in Termux https://wiki.termux.com/wiki/Python
 
-1. Install disk_treemap via pip: `pip install termux`
+1. Install disk_treemap via pip: `pip install disk_treemap`
 
 1. Just do analyze as your phone is an ordinary computer.
 
