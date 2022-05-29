@@ -31,7 +31,7 @@ pip install disk_treemap
 ```shell
 # clone the repository
 git clone 
-git submodule update --recursively
+git submodule update --recursive
 # build static
 python3 setup.py build_static
 
