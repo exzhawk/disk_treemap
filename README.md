@@ -9,7 +9,7 @@ Just another disk usage analyzer with treemap GUI.
 * B/S structure. You can run the scanner on a remote machine, and view treemap via a browser on a local machine
 * Support save/load a treemap. You can run the scanner on a machine, then copy result to another one and view it.
 * Support S3 and S3 compatible object storage service
-* Support using Everything by voidtools to speedup scanning.
+* Support using [*Everything by voidtools*](https://www.voidtools.com/) to speedup scanning extraordinarily.
 
 ## Cons
 
@@ -25,10 +25,13 @@ pip install disk_treemap
 
 ## Build and install from source
 
+**dependencies:**
+* npm: `npm` must be in `PATH` to build static. Make sure NodeJS and npm is installed and in `PATH`.
+
 ```shell
 # clone the repository
 git clone 
-git submodules update --recursively
+git submodule update --recursively
 # build static
 python3 setup.py build_static
 
@@ -91,7 +94,7 @@ safe!
 
 **Analyze a Windows computer with Everything x64 installed**
 
-1. Make sure Everything x64 is running.
+1. Make sure Everything x64 is running. Get it from https://www.voidtools.com/ if it's not installed. It's free.
 
 1. Run `disk-treemap --everything <Paths to analyze>`
    
