@@ -28,7 +28,7 @@ def start_server(size_tree_file_path, host, port, compression):
 
     @app.route('/size_tree.json')
     def size_tree():
-        return send_file(size_tree_file_path, cache_timeout=-1)
+        return send_file(size_tree_file_path, max_age=-1)
 
     @app.route('/info')
     def get_info():

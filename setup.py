@@ -58,7 +58,7 @@ setup(
         'build_static': BuildStatic,
     },
     install_requires=[
-        'flask',
+        'flask>=2.0',
         'tqdm',
         'flask-compress',
         'boto3',
